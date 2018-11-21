@@ -1,0 +1,117 @@
+<!doctype html>
+<head></head>
+
+
+<label>Primary Category</label>
+<select onchange="window.open(this.value,'_parent','');">
+	<option>Select the primary category</option>
+	{% for prime_cat in primary_cat %}	
+	{% if prime_cat['Primary_area'] == pc and prime_cat['Primary_area'] != '' %}
+	<option value="{{url_for('iep_creation', pc=prime_cat['Primary_area']) }}" selected>{{ prime_cat['Primary_area'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=prime_cat['Primary_area']) }}">{{ prime_cat['Primary_area'] }}</option>
+	{% endif %}
+	{% endfor %}
+</select>
+<br>
+
+<label>Secondary Category</label>
+<select onchange="window.open(this.value,'_parent','');">
+	<option>Select the secondary category</option>
+	{% for sec_cat in secondary_cat %}
+	{% if sec_cat['Secondary_area'] == sc %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sec_cat['Secondary_area']) }}" selected>{{ sec_cat['Secondary_area'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sec_cat['Secondary_area'] ) }}">{{ sec_cat['Secondary_area'] }}</option>
+	{% endif %}
+	{% endfor %}
+</select>
+<br>
+
+<label>Tertiary Category</label>
+<select onchange="window.open(this.value,'_parent','');">
+	<option>Select the tertiary category</option>
+	{% for ter_cat in tertiary_cat %}
+	{% if ter_cat['Tertiary_area'] != '' %}
+	{% if ter_cat['Tertiary_area'] == tc %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=ter_cat['Tertiary_area']) }}" selected>{{ ter_cat['Tertiary_area'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=ter_cat['Tertiary_area']) }}">{{ ter_cat['Tertiary_area'] }}</option>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+</select>
+<br>
+{{tertiary_cat}}
+
+<label>Quarternary Category</label>
+<select onchange="window.open(this.value,'_parent','');">
+	<option>Select the quarternary category</option>
+	{% for quar_cat in quarternary_cat %}
+	{% if quar_cat['Quarternary_area'] == qc %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc,  qc=quar_cat['Quarternary_area']) }}" selected>{{ quar_cat['Quarternary_area'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc, qc=quar_cat['Quarternary_area']) }}">{{ quar_cat['Quarternary_area'] }}</option>
+	{% endif %}
+	{% endfor %}
+</select>
+<br>
+
+
+
+<label>Activities</label>
+<select onchange="window.open(this.value,'_parent','');">
+	<option>Select the Activities </option>
+	{% if pc and sc and not tc and not qc and not ac %} 
+	{% for acti in activity_cat %}
+	{% if acti['Activities'] != '' %}
+	{% if acti['Activities'] == sc %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=acti['Activities']) }}" selected>{{ acti['Activities'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=acti['Activities']) }}">{{ acti['Activities'] }}</option>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+
+	{% elif pc and sc and tc and not qc and not ac %}
+	{% for acti in activity_cat %}
+	{% if acti['Activities'] != '' %}
+	{% if acti['Activities'] == tc %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc, qc=acti['Activities']) }}" selected>{{ acti['Activities'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc, qc=acti['Activities']) }}">{{ acti['Activities'] }}</option>
+	{% endif %}
+	{% endif %}
+	{% endfor %}	
+
+	{% elif pc and sc and tc and qc and not ac %}
+	{% for acti in activity_cat %}
+	{% if acti['Activities'] != '' %}
+	{% if acti['Activities'] == qc %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc, qc=qc, ac=acti['Activities']) }}" selected>{{ acti['Activities'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc, qc=qc, ac=acti['Activities']) }}">{{ acti['Activities'] }}</option>
+	{% endif %}
+	{% endif %}
+	{% endfor %}	
+
+	{% elif pc and sc and tc and qc and ac %}
+	{% for acti in activity_cat %}
+	{% if acti['Activities'] != '' %}
+	{% if acti['Activities'] == ac %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc, qc=qc, ac=acti['Activities']) }}" selected>{{ acti['Activities'] }}</option>
+	{% else %}
+	<option value="{{url_for('iep_creation', pc=pc, sc=sc, tc=tc, qc=qc, ac=acti['Activities']) }}">{{ acti['Activities'] }}</option>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+</select>
+<br>
+
+<label>Methods</label>
+    <textarea rows="4" cols="50">{% for meth in methods %}{{ meth['Methods'].strip() }}{% endfor %}</textarea> 
+<br>
+
+<label>Materials</label>
+    <textarea rows="4" cols="50">{% for mat in methods %}{{ mat['Materials'].strip() }}{% endfor %}</textarea> 
